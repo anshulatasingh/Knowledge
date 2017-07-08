@@ -26,15 +26,6 @@ import com.knowledge.store.model.NodeDataVo;
  * @author KRISHNA
  */
 public class UIUtil {
-	
-	public static void main(String[] args) {
-		nodeVOToNodeDataVO();
-				
-		System.out.println("+++++++++++++++++++++++++++++++++=");
-		
-		InfoVOToInfoDataVO();
-		
-	}
 
 	public static TextField createClearableTextField() {
 		final TextField clearableTextField = TextFields.createClearableTextField();
@@ -45,31 +36,32 @@ public class UIUtil {
 
 	}
 
-	public static List<NodeDataVo> nodeVOToNodeDataVO() {
-		List<NodeDataVo> nodeDataList = new ArrayList<NodeDataVo>();
-		NodeDao nodeDao = new NodeDaoImpl();
-		List<NodeVo> nodeVo = nodeDao.getAllNode();
-		for (NodeVo nodeVo2 : nodeVo) {
-			
-			NodeDataVo nodeData = new NodeDataVo(nodeVo2.getNodeId(), nodeVo2.getParentId(), nodeVo2.getLabel(),
-					nodeVo2.isLeaf());
-
-			nodeDataList.add(nodeData);
+	public static List<NodeDataVo> nodeVOToNodeDataVO(List<NodeVo> nodeVos) {
+		List<NodeDataVo> nodeDataList = new ArrayList<NodeDataVo>();	
+		
+		for (NodeVo nodeVo : nodeVos) {
+			nodeDataList.add(new NodeDataVo(nodeVo.getNodeId(), nodeVo.getParentId(), nodeVo.getLabel(),
+					nodeVo.isLeaf()));
 
 		}
-
-		for (NodeDataVo nodeVo2 : nodeDataList) {
-
-			System.out.println("NodeData outside for Loop:  " + nodeVo2);
-
-		}
-
 		return nodeDataList;
 
 	}
 	
+	public static List<NodeVo> nodeDataVOToNodeVO(List<NodeDataVo> nodeDataVos) {
+		List<NodeVo> nodeVoList = new ArrayList<NodeVo>();	
+		
+		for (NodeDataVo nodeDataVo : nodeDataVos) {
+			nodeVoList.add(new NodeVo(nodeDataVo.getNodeId(), nodeDataVo.getParentId(), nodeDataVo.getLabel(),
+					nodeDataVo.isIsLeaf()));
+
+		}
+		return nodeVoList;
+
+	}
 	
-	public static List<InfoDataVo> InfoVOToInfoDataVO() {
+	
+	public static List<InfoDataVo> infoVOToInfoDataVO() {
 		List<InfoDataVo> infoDataList = new ArrayList<>();
 
 		InfoDao infoDao = new InfoDaoImpl();

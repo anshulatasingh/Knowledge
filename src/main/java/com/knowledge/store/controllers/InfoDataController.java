@@ -1,6 +1,7 @@
 package com.knowledge.store.controllers;
 
 import com.backend.dao.impl.InfoDaoImpl;
+import com.backend.models.InfoVo;
 import com.knowledge.store.model.InfoDataVo;
 import com.knowledge.store.model.NodeDataVo;
 
@@ -149,6 +150,8 @@ public class InfoDataController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		loadTableData(selectedNode.getNodeId());
 
 		saveInfoButton.setFocusTraversable(false);
 		TextField filteredTextBox = UIUtil.createClearableTextField();
@@ -189,7 +192,8 @@ public class InfoDataController implements Initializable {
 	
 	public List<InfoDataVo> loadTableData(Integer nodeId){
 		List<InfoDataVo> results =new ArrayList<>();
-		infoDaoImpl.getInfoByNodeId(nodeId);
+		List<InfoVo> infoVos=infoDaoImpl.getInfoByNodeId(nodeId);
+	
 		return results;
 	}
 

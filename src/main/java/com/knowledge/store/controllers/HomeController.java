@@ -1,6 +1,8 @@
 
 package com.knowledge.store.controllers;
 
+import com.backend.dao.NodeDao;
+import com.backend.dao.impl.NodeDaoImpl;
 import com.knowledge.store.model.NodeDataVo;
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +39,10 @@ import javafx.scene.text.Text;
 
 public class HomeController implements Initializable {
 
+	private NodeDao nodeDao = new NodeDaoImpl();
+
+	private List<NodeDataVo> nodeDataList;
+
 	@FXML
 	private MenuBar menuBar;
 
@@ -72,11 +78,7 @@ public class HomeController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		List<NodeDataVo> nodeDataList = UIUtil.nodeVOToNodeDataVO();
-		for (NodeDataVo nodeDataVo : nodeDataList) {
-			System.out.println("nodeDataVO in HomeController: " + nodeDataVo.getLabel());
-		}
-
+		nodeDataList = UIUtil.nodeVOToNodeDataVO(nodeDao.getAllNode());
 		TreeItem<NodeDataVo> root = constructTree(nodeDataList);
 		if (root != null)
 			treeView.setRoot(root);
