@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.HTMLEditor?>
+
+<SplitPane id="splitPaneVertical" dividerPositions="0.6" focusTraversable="true" orientation="VERTICAL" prefHeight="598.0" prefWidth="960.0" styleClass="darkList" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<items>
+<AnchorPane id="anchorPane3" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="theme">
+<children>
+            <VBox stylesheets="@resources/knowledge-store.css" AnchorPane.bottomAnchor="-70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox fx:id="infoButtonBar" alignment="CENTER" prefHeight="28.0" prefWidth="960.0" spacing="10.0" stylesheets="@resources/knowledge-store.css">
+                     <children>
+                        <Region fx:id="regionBar" prefHeight="55.0" prefWidth="234.0" stylesheets="@resources/knowledge-store.css" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="newInfoButton" mnemonicParsing="false" onAction="#onNewInfoButtonAction" prefHeight="26.0" prefWidth="114.0" text="New" />
+                        <Button fx:id="saveInfoButton" mnemonicParsing="false" onAction="#onSaveInfoButtonAction" prefHeight="26.0" prefWidth="114.0" text="Save" />
+                        <Button fx:id="updateInfoButton" mnemonicParsing="false" onAction="#onUpdateInfoAction" prefHeight="26.0" prefWidth="114.0" text="Update" />
+                        <Button fx:id="deleteInfoButton" mnemonicParsing="false" onAction="#onDeleteInfoButtonAction" prefHeight="26.0" prefWidth="114.0" text="Delete" />
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClearAction" prefHeight="26.0" prefWidth="114.0" text="Clear" />
+                        <Button fx:id="reloadButon" mnemonicParsing="false" onAction="#onReloadAction" prefHeight="26.0" prefWidth="114.0" text="Reload" />
+                     </children>
+                     <effect>
+                        <DropShadow color="#35359e" height="67.65" radius="21.6625" />
+                     </effect>
+                  </HBox>
+        <TableView fx:id="infoTable" editable="true" opacity="0.92" prefHeight="421.0" prefWidth="960.0" styleClass="darkList" stylesheets="@resources/knowledge-store.css" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+          <columns>
+            <TableColumn id="tableView" fx:id="id" maxWidth="750.0" minWidth="75.0" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="date" maxWidth="750.0" minWidth="75.0" prefWidth="75.0" text="DATE" />
+            <TableColumn fx:id="label" maxWidth="4430.0" minWidth="212.0" prefWidth="218.0" text="LABEL" />
+            <TableColumn fx:id="description" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="431.0" text="DESCRIPTION" />
+          </columns>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#onDeleteInfoButtonAction" text="Delete" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+        </TableView>
+               </children>
+            </VBox>
+</children>
+</AnchorPane>
+<AnchorPane id="anchorPane4" fx:id="details" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+<children>
+            <VBox layoutY="63.0" prefHeight="396.0" prefWidth="800.0" spacing="5.0" stylesheets="@resources/knowledge-store.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+        <HBox id="HBox" alignment="CENTER" prefHeight="22.0" prefWidth="558.0" spacing="5.0" styleClass="theme">
+          <children>
+                        <Label fx:id="datelabel" prefHeight="21.0" prefWidth="36.0" text="DATE:" />
+                        <DatePicker fx:id="datepicker" prefHeight="26.0" prefWidth="122.0" />
+                        <Label prefHeight="21.0" prefWidth="58.0" text="LABEL: " />
+                        <TextField fx:id="labelText" prefHeight="31.0" prefWidth="508.0" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                        <Label prefHeight="17.0" prefWidth="89.0" text="DESCRIPTION: " />
+          </children>
+        </HBox>
+                  <HTMLEditor fx:id="descriptionText" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="200.0" prefWidth="506.0" styleClass="theme" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+</children>
+</AnchorPane>
+</items>
+</SplitPane>

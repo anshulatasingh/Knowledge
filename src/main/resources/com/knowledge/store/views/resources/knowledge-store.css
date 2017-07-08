@@ -1,0 +1,127 @@
+
+.theme {  
+     -fx-background-color: radial-gradient(radius 180%, #AAAAAA, derive(#AAAAAA, -30%), derive(#CCCCCC, 30%));
+    -fx-font-size: 14px;
+    -fx-bar-gap: 12px;
+}
+
+.split-pane {
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-background-color: derive(#AAAAAA, 100%);
+     -fx-background-color: radial-gradient(radius 10%, #AAAAAA, derive(#AAAAAA, -30%), derive(#CCCCCC, 30%));
+}
+
+.button {
+   -fx-font-size: 14px;     
+     -fx-background-color: radial-gradient(radius 500%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+    -fx-background-radius: 4, 3;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.55) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: black;
+    -fx-padding: 3 11 3 11;
+}
+
+
+.button:focused {
+    -fx-text-fill: white;
+    -fx-background-radius: 4, 3;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(4,0,5,0.55) , 5, 0.0 , 0 , 1 );
+}
+.button:hover {
+    -fx-text-fill: white;
+    -fx-background-radius: 4, 3;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(4,10,5,0.55) , 5, 0.0 , 0 , 1 );
+}
+
+.myTree  {
+      
+   -fx-background-color: radial-gradient(radius 300%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+        -fx-text-fill: #AAAACC ; 
+     
+     
+   }
+
+.tree-cell {      
+   -fx-background-color: #AAAAAA;
+        -fx-text-fill: #FFFFFF ; 
+     
+     
+   }
+
+.tree-cell:selected {
+    -fx-font-weight: bold ;
+}
+
+.table-view {
+    
+     -fx-background-color: radial-gradient(radius 500%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+     -fx-opacity: 1;   
+     -fx-background-radius: 8;   
+    -fx-text-fill: white;
+}
+
+.statusbar {
+    -fx-background-color: radial-gradient(radius 400%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+    -fx-text-fill: white;
+    -fx-background-radius: 4, 3;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(4,0,5,0.55) , 5, 0.0 , 0 , 1 );
+    
+}
+
+.text-area, .text-field {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+  
+     
+}
+
+.text-area {
+    -fx-padding: 2;
+}
+
+.text-field {
+    -fx-padding: 3 6 3 6;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.scearchbar{
+    -fx-background-color: radial-gradient(radius 8800%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+    -fx-background-radius: 40;
+    -fx-border-radius: 30;
+    
+}
+
+.tree-scearch-text-box{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 40;
+    -fx-border-radius: 30;
+    
+}
+
+
+.login{
+   -fx-background-color: #FFFFFF;
+   -fx-text-fill:#AAAAAA;
+   
+}
+
+.menu{
+     -fx-background-color: radial-gradient(radius 800%, #EEEEEE, derive(#FFFFFF, -90%), derive(#ABCDEF, -90%));
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+.context-menu{
+      -fx-background-color: #AABBCC;
+}
+
+.menu-item{
+    -fx-background-color: #AABBCC;
+}
