@@ -43,19 +43,11 @@ TAB functionality:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+ONSAVE  button functionality:
+==================================
+1: get the value from the UI object that is InfoDataVo.
+2: convert the infoDataVo object to InfoVo object using UIUTIL converter method
+3: now save the infovo object in db.
 
 
 

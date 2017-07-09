@@ -35,7 +35,7 @@ public class InfoDaoImplTest {
 		int id=1;
 		List<NodeVo> nodeVo=nodeImpl.getAllNode();
 		if(!nodeVo.isEmpty()){
-		InfoVo infoData = new InfoVo(1,nodeVo.get(0).getNodeId(), "1st April", "ROOT", "TES");
+		InfoVo infoData = new InfoVo(4,4, "1st April", "child", "TES");
 		infoImpl.addInfo(infoData);
 		}
 		

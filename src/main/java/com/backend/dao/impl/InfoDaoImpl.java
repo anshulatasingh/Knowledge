@@ -21,7 +21,6 @@ public class InfoDaoImpl implements InfoDao {
 	@Override
 	public int addInfo(InfoVo infoData) throws GenericException {
 
-		System.out.println(infoData.toString());
 		// 1: create sql query
 		// 2: get connection
 		// 3: create statement
@@ -37,8 +36,8 @@ public class InfoDaoImpl implements InfoDao {
 			pst = con.prepareStatement(query);
 
 			pst.setInt(1, infoData.getNodeId());
-			pst.setString(2, infoData.getLabel());
-			pst.setString(3, infoData.getCreationDate());
+			pst.setString(2, infoData.getCreationDate());
+			pst.setString(3, infoData.getLabel());
 			pst.setString(4, infoData.getDescription());
 			return pst.execute() ? 1 : 0;
 		} catch (SQLException e) {
@@ -123,7 +122,7 @@ public class InfoDaoImpl implements InfoDao {
 
 		Connection con = null;
 		PreparedStatement pst = null;
-		String query = "upadet info set label=?,c_date=? ,description=? where infoid=?";
+		String query = "update info set label=?,c_date=? ,description=? where infoid=?";
 
 		try {
 			con = DBUtil.getConnection();
@@ -255,6 +254,33 @@ public class InfoDaoImpl implements InfoDao {
 		} finally {
 			DBUtil.close(null,null, con);
 		}
+	}
+
+	@Override
+	public int generateInfoId() throws GenericException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs=null;
+		String query = "select max(infoId) from info";
+		int infoId=0;
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(query);
+			rs = pst.executeQuery();
+			
+			if (rs != null) 
+				if (rs.next()) {
+					infoId=rs.getInt(1);
+				}
+			
+		} catch (SQLException e) {
+			LOGGER.error("Error while inserting Node data", e);
+			throw new GenericException("InfoDaoImpl", "Error while inserting Node data", e);
+		} finally {
+			DBUtil.close(null,null, con);
+		}
+		
+		return infoId;
 	}
 
 }

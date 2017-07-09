@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -118,7 +119,7 @@ public class HomeController implements Initializable {
 	public void addTab(NodeDataVo nodeDataVo) {
 
 		if (tabMap.containsKey(nodeDataVo.getNodeId())) {
-			tabPane.getSelectionModel().select(nodeDataVo.getNodeId());
+			tabPane.getSelectionModel().select(getTabById(nodeDataVo.getNodeId()+"", tabPane.getTabs()));
 			System.out.println("exist");
 		} else {
 			System.out.println("need to create");
@@ -144,7 +145,7 @@ public class HomeController implements Initializable {
 				Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			tabPane.getTabs().add(tab);
-			tabPane.getSelectionModel().select(nodeDataVo.getNodeId());
+			tabPane.getSelectionModel().select(tab);
 			tabMap.put(nodeDataVo.getNodeId(), controller);
 
 		}
@@ -184,6 +185,18 @@ public class HomeController implements Initializable {
 		}
 		return root;
 
+	} 
+	
+	public Tab getTabById(String tabId, ObservableList<Tab> tabs){
+		Tab temp=null;
+		for (Tab tab : tabs) 			
+			if (tab.getId().equals(tabId)) {
+				temp=tab;
+				break;
+			}
+				
+		return temp;
+	
 	}
 
 }

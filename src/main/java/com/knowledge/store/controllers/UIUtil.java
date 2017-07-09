@@ -61,20 +61,24 @@ public class UIUtil {
 	}
 	
 	
-	public static List<InfoDataVo> infoVOToInfoDataVO() {
+	public static List<InfoDataVo> infoVOToInfoDataVO(List<InfoVo> infoVos ) {
 		List<InfoDataVo> infoDataList = new ArrayList<>();
-
-		InfoDao infoDao = new InfoDaoImpl();
-		List<InfoVo> infoVo = infoDao.getAllInfo();
-		for (InfoVo infoVo2 : infoVo) {
-			InfoDataVo infoData = new InfoDataVo(infoVo2.getNodeId(), infoVo2.getCreationDate(), infoVo2.getLabel(),
-					infoVo2.getDescription());
-
-			infoDataList.add(infoData);
-
+		for (InfoVo infoVo : infoVos) {
+			System.out.println(infoVo);
+			infoDataList.add(new InfoDataVo(infoVo.getId(),infoVo.getCreationDate(),infoVo.getLabel(),infoVo.getDescription()));
 		}
 
 		return infoDataList;
+
+	}
+	
+	public static List<InfoVo> infoDataVOToInfoVO(List<InfoDataVo> infoDataVos,int nodeId ) {
+		List<InfoVo> infoVoList = new ArrayList<>();
+		for (InfoDataVo infoDataVo : infoDataVos) {
+			infoVoList.add(new InfoVo(infoDataVo.getId(), nodeId, infoDataVo.getDate(), infoDataVo.getLabel(), infoDataVo.getDescription()));
+		}
+
+		return infoVoList;
 
 	}
 	

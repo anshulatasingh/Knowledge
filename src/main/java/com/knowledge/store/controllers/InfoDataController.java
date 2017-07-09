@@ -40,10 +40,10 @@ import javafx.util.StringConverter;
 public class InfoDataController implements Initializable {
 
 	private final String pattern = "yyyy-MM-dd";
-	
+
 	private NodeDataVo selectedNode;
-	
-	private InfoDaoImpl infoDaoImpl=new InfoDaoImpl();
+
+	private InfoDaoImpl infoDaoImpl = new InfoDaoImpl();
 
 	@FXML // injecting and intializing the value of infoButtonBar from .fxml
 			// file mapping happens with fx:id
@@ -99,8 +99,7 @@ public class InfoDataController implements Initializable {
 
 	@FXML
 	private TextField labelText;
-	
-	
+
 	public InfoDataController(NodeDataVo selectedNode) {
 		this.selectedNode = selectedNode;
 	}
@@ -112,6 +111,8 @@ public class InfoDataController implements Initializable {
 
 	@FXML
 	void onDeleteInfoButtonAction(ActionEvent event) {
+		InfoDataVo selectedRow=infoTable.getSelectionModel().getSelectedItems().get(0);
+		infoDaoImpl.deleteInfoByInfoId(selectedRow.getId());
 		infoTable.getItems().removeAll(infoTable.getSelectionModel().getSelectedItems());
 	}
 
@@ -122,7 +123,8 @@ public class InfoDataController implements Initializable {
 
 	@FXML
 	void onReloadAction(ActionEvent event) {
-
+		infoTable.getItems().addAll(loadTableData(selectedNode.getNodeId()));
+		
 	}
 
 	@FXML
@@ -131,9 +133,10 @@ public class InfoDataController implements Initializable {
 		LocalDate date = datepicker.getValue();
 		String text = labelText.getText();
 		String description = descriptionText.getHtmlText();
-		InfoDataVo info = new InfoDataVo(0, date.toString(), text, description);
+		InfoDataVo info = new InfoDataVo(infoDaoImpl.generateInfoId(), date.toString(), text, description);
+		infoDaoImpl.addInfo(UIUtil.infoDataVOToInfoVO(Arrays.asList(info), selectedNode.getNodeId()).get(0));
+		System.out.println(UIUtil.infoDataVOToInfoVO(Arrays.asList(info), selectedNode.getNodeId()).get(0));
 		infoTable.getItems().add(info);
-
 	}
 
 	@FXML
@@ -143,6 +146,7 @@ public class InfoDataController implements Initializable {
 			view.setDate(datepicker.getValue().toString());
 			view.setDescription(descriptionText.getHtmlText());
 			view.setLabel(labelText.getText());
+			infoDaoImpl.updateInfoByInfoId(UIUtil.infoDataVOToInfoVO(Arrays.asList(view), selectedNode.getNodeId()).get(0));
 			infoTable.getItems().set(infoTable.getSelectionModel().getSelectedIndex(), view);
 		}
 
@@ -150,9 +154,8 @@ public class InfoDataController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		loadTableData(selectedNode.getNodeId());
 
+		infoTable.getItems().addAll(loadTableData(selectedNode.getNodeId()));
 		saveInfoButton.setFocusTraversable(false);
 		TextField filteredTextBox = UIUtil.createClearableTextField();
 
@@ -189,12 +192,16 @@ public class InfoDataController implements Initializable {
 		});
 
 	}
-	
-	public List<InfoDataVo> loadTableData(Integer nodeId){
-		List<InfoDataVo> results =new ArrayList<>();
-		List<InfoVo> infoVos=infoDaoImpl.getInfoByNodeId(nodeId);
-	
-		return results;
+
+	/**
+	 * Fetch the data from database and convert into UI model data(InfoDataVo)
+	 * 
+	 * @param nodeId
+	 * @return
+	 */
+	public List<InfoDataVo> loadTableData(Integer nodeId) {
+		System.out.println("Data from db "+infoDaoImpl.getInfoByNodeId(nodeId));
+		return UIUtil.infoVOToInfoDataVO(infoDaoImpl.getInfoByNodeId(nodeId));
 	}
 
 	public void populateMasterTable(InfoDataVo data) {

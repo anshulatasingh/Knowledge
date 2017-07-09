@@ -36,5 +36,8 @@ public interface InfoDao {
 	// 7:delete all node.
 
 	void deleteAllInfo() throws GenericException;
+	
+	int  generateInfoId()throws GenericException;
+	
 
 }

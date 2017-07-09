@@ -26,11 +26,6 @@ public class Startup extends Application {
             VBox page = (VBox) FXMLLoader.load(getClass().getResource("/com/knowledge/store/views/HomeView.fxml"));
             Scene scene = new Scene(page);            
             //scene.getStylesheets().add("/com/knowledge/store/views/resources/knowledge-store.css");
-            ObservableList l= scene.getStylesheets();
-            for (Object object : l) {
-                System.out.println(object);
-            }
-            System.out.println("C:\\Program Files\\Java\\jdk1.8.0_65");
             primaryStage.setScene(scene);
             primaryStage.setTitle("Info Store");            
             //primaryStage.setMaximized(true);
