@@ -40,7 +40,7 @@ public class NodeDaoImpl implements NodeDao {
 			pst.setInt(2, nodeData.getParentId());
 			pst.setString(3, nodeData.getLabel());
 			pst.setBoolean(4, nodeData.isLeaf());
-			return pst.execute() ? 1 : 0;
+			return pst.executeUpdate();
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
 			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
@@ -188,6 +188,35 @@ public class NodeDaoImpl implements NodeDao {
 			DBUtil.close(null, pst, con);
 		}
 
+	}
+	
+
+	@Override
+	public int generateNodeId() throws GenericException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		String query = "select max(nodeid) from node";
+		int infoId = 1;
+		try {
+			con = DBUtil.getConnection();
+			pst = con.prepareStatement(query);
+			rs = pst.executeQuery();
+
+			if (rs != null)
+				if (rs.next()) {
+					infoId = rs.getInt(1);
+				}
+
+		} catch (SQLException e) {
+			LOGGER.error("Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
+		} finally {
+			DBUtil.close(null, null, con);
+		}
+
+		return infoId+1;
 	}
 
 }

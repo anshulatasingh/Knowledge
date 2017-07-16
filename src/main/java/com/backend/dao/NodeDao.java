@@ -32,5 +32,7 @@ public interface NodeDao {
 	// 7:delete all node.
 
 	void deleteAllNode() throws GenericException;
+	
+	public int generateNodeId() throws GenericException;
 
 }

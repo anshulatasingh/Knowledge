@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="415.0" prefWidth="842.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="save" layoutX="47.0" layoutY="327.0" mnemonicParsing="false" onAction="#onSaveAction" prefHeight="31.0" prefWidth="175.0" text="Save" />
+      <Button fx:id="update" layoutX="413.0" layoutY="327.0" mnemonicParsing="false" onAction="#onUpdate" prefHeight="31.0" prefWidth="175.0" text="Update" />
+      <Button fx:id="delete" layoutX="229.0" layoutY="327.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="31.0" prefWidth="175.0" text="Delete" />
+      <Button fx:id="clear" layoutX="601.0" layoutY="327.0" mnemonicParsing="false" onAction="#onClear" prefHeight="31.0" prefWidth="175.0" text="Clear" />
+      <Label fx:id="messagelabel" layoutX="82.0" layoutY="52.0" prefHeight="43.0" prefWidth="723.0" />
+      <Label layoutX="82.0" layoutY="131.0" prefHeight="31.0" prefWidth="104.0" text="NODE ID" />
+      <Label layoutX="82.0" layoutY="192.0" prefHeight="31.0" prefWidth="104.0" text="LABEL" />
+      <RadioButton fx:id="isParentradioButton" layoutX="215.0" layoutY="263.0" mnemonicParsing="false" />
+      <Label layoutX="82.0" layoutY="258.0" prefHeight="31.0" prefWidth="104.0" text="IS PARENT" />
+      <TextField fx:id="labelText" layoutX="186.0" layoutY="186.0" prefHeight="31.0" prefWidth="544.0" />
+      <TextField fx:id="nodeIdTextField" layoutX="186.0" layoutY="131.0" prefHeight="31.0" prefWidth="544.0" />
+   </children>
+</AnchorPane>

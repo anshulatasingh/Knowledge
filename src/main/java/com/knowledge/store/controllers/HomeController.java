@@ -3,9 +3,9 @@ package com.knowledge.store.controllers;
 
 import com.backend.dao.NodeDao;
 import com.backend.dao.impl.NodeDaoImpl;
+import com.backend.models.NodeVo;
 import com.knowledge.store.model.NodeDataVo;
-import java.io.IOException;
-import java.net.URL;
+import java.io.IOException;import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -37,6 +38,8 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class HomeController implements Initializable {
 
@@ -75,14 +78,71 @@ public class HomeController implements Initializable {
 	void onCloseAction(ActionEvent event) {
 
 	}
+        
+        @FXML
+    void onAddNode(ActionEvent event) {
+        //get the seleteed node                         
+        
+        NodeDataVo selectedNode = treeView.getSelectionModel().getSelectedItem().getValue();
+        if (selectedNode==null) 
+		return;	
+        try {
+        	final Stage dialog = new Stage();
+        	TreeManagerController controller=new TreeManagerController(selectedNode,dialog,nodeDao);
+        	FXMLLoader an = new FXMLLoader(getClass().getResource("/com/knowledge/store/views/TreeManager.fxml"));
+			an.setController(controller);
+			an.load();
+                dialog.initModality(Modality.NONE);
+                dialog.initOwner(SharedResource.primaryStage);
+                Scene dialogScene = new Scene(an.getRoot(), 800, 400);
+                dialog.setScene(dialogScene);
+                dialog.show();
+                        
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        
+      
+      
+    }
+
+    @FXML
+    void onClear(ActionEvent event) {
+
+    }
+
+    
+
+    @FXML
+    void onCopyNode(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onDeleteNode(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onPasteNode(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRefreshNode(ActionEvent event) {
+        loadTree();
+    }
+
+    @FXML
+    void onUpdateNode(ActionEvent event) {
+
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		nodeDataList = UIUtil.nodeVOToNodeDataVO(nodeDao.getAllNode());
-		TreeItem<NodeDataVo> root = constructTree(nodeDataList);
-		if (root != null)
-			treeView.setRoot(root);
+		loadTree();
 		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -101,6 +161,13 @@ public class HomeController implements Initializable {
 		});
 
 	}
+        
+        public void loadTree(){
+        nodeDataList = UIUtil.nodeVOToNodeDataVO(nodeDao.getAllNode());
+		TreeItem<NodeDataVo> root = constructTree(nodeDataList);
+		if (root != null)
+			treeView.setRoot(root);
+        }
 
 	private void handleMouseClicked(MouseEvent event) {
 		Node node = event.getPickResult().getIntersectedNode();

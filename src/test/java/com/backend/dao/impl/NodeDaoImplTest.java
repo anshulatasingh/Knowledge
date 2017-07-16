@@ -13,6 +13,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.backend.models.NodeVo;
+import com.knowledge.store.model.NodeDataVo;
 
 public class NodeDaoImplTest {
 
@@ -73,6 +74,14 @@ public class NodeDaoImplTest {
 	}
 
 	
+	@Test
+	public void addNodeFromUI(){
+		//prepare the data 
+		NodeDataVo vo=new NodeDataVo(7, 3, "Derby", true);
+		NodeVo nodeData=new NodeVo(vo.getNodeId(), vo.getParentId(), vo.getLabel(), vo.isIsLeaf());
+		nodeImpl.addNode(nodeData);
+		
+	}
 	
 	
 }

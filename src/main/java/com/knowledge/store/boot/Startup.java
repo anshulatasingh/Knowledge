@@ -2,6 +2,7 @@
 package com.knowledge.store.boot;
 
 
+import com.knowledge.store.controllers.SharedResource;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -23,6 +24,7 @@ public class Startup extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            SharedResource.primaryStage=primaryStage;
             VBox page = (VBox) FXMLLoader.load(getClass().getResource("/com/knowledge/store/views/HomeView.fxml"));
             Scene scene = new Scene(page);            
             //scene.getStylesheets().add("/com/knowledge/store/views/resources/knowledge-store.css");
