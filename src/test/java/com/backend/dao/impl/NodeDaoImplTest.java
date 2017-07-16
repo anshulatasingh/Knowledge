@@ -39,7 +39,6 @@ public class NodeDaoImplTest {
 		BufferedReader br = new BufferedReader(fr);
 		String line = null;
 		while ((line = br.readLine()) != null) {
-			// System.out.println(line);
 			String[] rawdata = line.split(",");
 			NodeVo nvo = new NodeVo();
 			nvo.setNodeId(Integer.parseInt(rawdata[0]));
@@ -52,6 +51,7 @@ public class NodeDaoImplTest {
 
 	}
 
+	/*@Ignore
 	@Test
 	public void testRetrive() throws IOException {
 		System.out.println(nodeImpl.getNodeById(2));
@@ -65,10 +65,10 @@ public class NodeDaoImplTest {
 		nodeImpl.deleteAllNode();
 		nodeImpl.getAllNode();
 	}
-
+*/
 	@Test
 	public void testAllRetrive() throws IOException {
-		System.out.println("in testAllretrive: ");
+		System.out.println("All Node retrive: ");
 		nodeImpl.getAllNode().forEach(nodeVO -> System.out.println(nodeVO));
 	}
 

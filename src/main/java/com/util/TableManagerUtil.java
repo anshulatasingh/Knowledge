@@ -12,7 +12,7 @@ public class TableManagerUtil {
 
 	public static final String NODE_TABLE = "create table node(nodeId int primary key NOT NULL,parentId int,label varchar(225),isLeaf boolean)";
 
-	public static final String INFO_TABLE = "create table info(infoId int primary key NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) ,nodeId int references node(nodeId),c_date varchar(10),label varchar(200),description varchar(300))";
+	public static final String INFO_TABLE = "create table info(infoId int primary key NOT NULL ,nodeId int references node(nodeId),c_date varchar(10),label varchar(200),description varchar(300))";
 
 	public static void excuteTable(String sqlForCreateTable) {
 		try (Connection con = DBUtil.getConnection(); Statement st = con.createStatement();) {

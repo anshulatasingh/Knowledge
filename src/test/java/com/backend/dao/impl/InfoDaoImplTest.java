@@ -1,5 +1,6 @@
 package com.backend.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -28,18 +29,30 @@ public class InfoDaoImplTest {
 		infoImpl = null;
 		nodeImpl=null;
 	}
+	
+	/*@Test
+	public void test() {
+		nodeImpl.getAllNode().forEach(x-> System.out.println(x));
+		System.out.println(infoImpl.addInfo(new InfoVo(2,2,"2017-01-01","Language-java","JavaTest")));
+	infoImpl.getAllInfo().forEach(x-> System.out.println(x));
+	}*/
 
 	@Test
 	public void test() {
-		@SuppressWarnings("unused")
-		int id=1;
-		List<NodeVo> nodeVo=nodeImpl.getAllNode();
-		if(!nodeVo.isEmpty()){
-		InfoVo infoData = new InfoVo(4,4, "1st April", "child", "TES");
-		infoImpl.addInfo(infoData);
+		nodeImpl.getAllNode().forEach(x-> System.out.println(x));
+		
+		List<InfoVo> listInfo=new ArrayList<InfoVo>();
+		listInfo.add(new InfoVo(1,1,"2017-01-01","Language","Language test test"));
+		listInfo.add(new InfoVo(2,2,"2017-01-01","Language-java","JavaTest"));
+		listInfo.add(new InfoVo(3,2,"2017-01-01","Language-java","JAVAUNIT"));
+		listInfo.add(new InfoVo(4,3,"2017-01-01","Language-SQL","SQLTEST"));
+		listInfo.add(new InfoVo(5,3,"2017-01-01","Language-SQL","SQLUNIT"));
+		listInfo.add(new InfoVo(6,4,"2017-01-01","Language-JSP","JSPTEST"));
+		listInfo.add(new InfoVo(6,5,"2017-01-01","Language-JAXB","JAXBTEST"));
+
+            infoImpl.addInfos(listInfo);
 		}
 		
-	}
 
 	@Test
 	public void testRetrive() {

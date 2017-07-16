@@ -50,4 +50,35 @@ ONSAVE  button functionality:
 3: now save the infovo object in db.
 
 
+=============================================================
+Check the Node, if available then insert info in info table.
+display all the info.
+
+
+Check, if the node data is available in Node Table.
+if available, then insert the info data in info table corresponding to that Node.
+
+
+
+1 get all the node from node table
+2:if(!node.isEmpty())
+3: insert info data to info Table foe corresponding node
+4:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

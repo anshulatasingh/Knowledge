@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 
 import com.backend.dao.InfoDao;
 import com.backend.models.InfoVo;
@@ -15,7 +16,7 @@ import com.exception.GenericException;
 import com.util.DBUtil;
 
 public class InfoDaoImpl implements InfoDao {
-	
+
 	private static final Logger LOGGER = Logger.getLogger(InfoDaoImpl.class);
 
 	@Override
@@ -28,29 +29,37 @@ public class InfoDaoImpl implements InfoDao {
 		// 5: process the result
 		// 6:close the connection
 
-		String query = "insert into info(nodeid,c_date,label,description) values(?,?,?,?)";
+		String query = "insert into info values(?,?,?,?,?)";
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(query);
 
-			pst.setInt(1, infoData.getNodeId());
-			pst.setString(2, infoData.getCreationDate());
-			pst.setString(3, infoData.getLabel());
-			pst.setString(4, infoData.getDescription());
-			return pst.execute() ? 1 : 0;
+			pst.setInt(1, generateInfoId());
+			pst.setInt(2, infoData.getNodeId());
+			pst.setString(3, infoData.getCreationDate());
+			pst.setString(4, infoData.getLabel());
+			pst.setString(5, infoData.getDescription());
+			return pst.executeUpdate();
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("InfoDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("InfoDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(null, pst, con);
 		}
 	}
-	
+
+	@Override
+	public void addInfos(List<InfoVo> infoData) throws GenericException {
+		for (InfoVo infoVo : infoData)
+			addInfo(infoVo);
+	}
+
 	@Override
 	public InfoVo getInfoByInfoId(int infoId) throws GenericException {
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -75,7 +84,8 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(rs, pst, con);
 		}
@@ -83,20 +93,20 @@ public class InfoDaoImpl implements InfoDao {
 
 	@Override
 	public List<InfoVo> getInfoByNodeId(int nodeId) throws GenericException {
-		
-		List<InfoVo> listdata=new ArrayList<>();
+
+		List<InfoVo> listdata = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		String query = "select * from Info where NodeId=?";
-		
+
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(query);
 			pst.setInt(1, nodeId);
 			rs = pst.executeQuery();
 			if (rs != null) {
-				if (rs.next()) {
+				while (rs.next()) {
 					InfoVo vo = new InfoVo();
 					vo.setId(rs.getInt("infoId"));
 					vo.setNodeId(rs.getInt("nodeId"));
@@ -111,13 +121,14 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(rs, pst, con);
 		}
 	}
 
-		@Override
+	@Override
 	public int updateInfoByInfoId(InfoVo infoVo) throws GenericException {
 
 		Connection con = null;
@@ -135,7 +146,8 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(null, pst, con);
 		}
@@ -158,12 +170,14 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(null, pst, con);
 		}
 	}
 
+	@Ignore
 	@Override
 	public void deleteInfoByInfoId(int infoId) throws GenericException {
 
@@ -179,12 +193,14 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(null, pst, con);
 		}
 	}
 
+	@Ignore
 	@Override
 	public void deleteInfoByNodeId(int nodeId) throws GenericException {
 		Connection con = null;
@@ -198,7 +214,8 @@ public class InfoDaoImpl implements InfoDao {
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("InfoDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("InfoDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(null, pst, con);
 		}
@@ -206,20 +223,19 @@ public class InfoDaoImpl implements InfoDao {
 
 	@Override
 	public List<InfoVo> getAllInfo() throws GenericException {
-		List<InfoVo> result=new ArrayList<>();
+		List<InfoVo> result = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		String query = "select * from Info";
-		
+		String query = "select * from info";
+
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
-			InfoVo vo = new InfoVo();
 			if (rs != null) {
-				if (rs.next()) {
-					
+				while(rs.next()) {
+					InfoVo vo = new InfoVo();
 					vo.setId(rs.getInt("infoId"));
 					vo.setNodeId(rs.getInt("nodeId"));
 					vo.setCreationDate(rs.getString("c_date"));
@@ -227,13 +243,13 @@ public class InfoDaoImpl implements InfoDao {
 					vo.setDescription(rs.getString("description"));
 					result.add(vo);
 				}
-
 			}
 			return result;
 
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("NodeDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("NodeDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
 			DBUtil.close(rs, pst, con);
 		}
@@ -250,9 +266,10 @@ public class InfoDaoImpl implements InfoDao {
 			prepst.execute();
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("InfoDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("InfoDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
-			DBUtil.close(null,null, con);
+			DBUtil.close(null, null, con);
 		}
 	}
 
@@ -260,27 +277,28 @@ public class InfoDaoImpl implements InfoDao {
 	public int generateInfoId() throws GenericException {
 		Connection con = null;
 		PreparedStatement pst = null;
-		ResultSet rs=null;
+		ResultSet rs = null;
 		String query = "select max(infoId) from info";
-		int infoId=0;
+		int infoId = 1;
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
-			
-			if (rs != null) 
+
+			if (rs != null)
 				if (rs.next()) {
-					infoId=rs.getInt(1);
+					infoId = rs.getInt(1);
 				}
-			
+
 		} catch (SQLException e) {
 			LOGGER.error("Error while inserting Node data", e);
-			throw new GenericException("InfoDaoImpl", "Error while inserting Node data", e);
+			throw new GenericException("InfoDaoImpl",
+					"Error while inserting Node data", e);
 		} finally {
-			DBUtil.close(null,null, con);
+			DBUtil.close(null, null, con);
 		}
-		
-		return infoId;
+
+		return infoId+1;
 	}
 
 }

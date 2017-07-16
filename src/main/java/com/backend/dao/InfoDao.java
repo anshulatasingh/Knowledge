@@ -9,6 +9,9 @@ public interface InfoDao {
 	
 	// 1: add data in node
 	int addInfo(InfoVo infoData) throws GenericException;
+	
+	
+	void addInfos(List<InfoVo> infoData) throws GenericException;
 
 	// 2: get node data based on node id.
 
@@ -37,7 +40,7 @@ public interface InfoDao {
 
 	void deleteAllInfo() throws GenericException;
 	
-	int  generateInfoId()throws GenericException;
+	int  generateInfoId( )throws GenericException;
 	
 
 }
